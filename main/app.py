@@ -1,4 +1,5 @@
 import datetime
+import json
 from typing import List
 
 from flask import Flask, jsonify, request
@@ -25,22 +26,24 @@ def create_app():
         db.session.remove()
 
     @app.route("/parkings", methods=["GET"])
-    def get_prking():
+    def get_prking() -> json:
         """get pargings"""
         parking: List[Parking] = db.session.query(Parking).all()
         parking_list = [u.to_json() for u in parking]
         return jsonify(parking_list), 200
 
     @app.route("/clients", methods=["GET"])
-    def get_clients():
+    def get_clients() -> json:
         """Получение клиентов"""
         clients: List[Client] = db.session.query(Client).all()
         clients_list = [u.to_json() for u in clients]
         return jsonify(clients_list), 200
 
     @app.route("/clients/<int:client_id>", methods=["GET"])
-    def get_client(client_id: int):
+    def get_client(client_id: int) -> json:
         client: Client = db.session.query(Client).get(client_id)
+        if client is None:
+            return 400
         return jsonify(client.to_json()), 200
 
     @app.route("/clients", methods=["POST"])
@@ -226,7 +229,7 @@ def create_app():
             return jsonify({"message": "Такой клиент уже давно выехал"}), 410
 
     @app.route("/client_parkings", methods=["GET"])
-    def get_client_parking():
+    def get_client_parking() -> json:
         get_clients_is_not_out_parking = (
             db.session.query(ClientParking)
             .filter(ClientParking.time_out == null())
