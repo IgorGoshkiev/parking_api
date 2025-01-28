@@ -9,7 +9,7 @@ db = SQLAlchemy()
 
 
 def create_app():
-    from .models import Client, ClientParking, Parking
+    from models import Client, ClientParking, Parking
 
     app = Flask(__name__, instance_relative_config=True)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///barrier.db"
@@ -51,7 +51,8 @@ def create_app():
         car_number = request.form.get("car_number", type=str)
 
         new_client = Client(
-            name=name, surname=surname, credit_card=credit_card, car_number=car_number
+            name=name, surname=surname, credit_card=credit_card,
+            car_number=car_number
         )
 
         db.session.add(new_client)
@@ -63,7 +64,8 @@ def create_app():
         address = request.form.get("address", type=str)
         opened = request.form.get("opened", type=bool)
         count_places = request.form.get("count_places", type=int)
-        count_available_places = request.form.get("count_available_places", type=int)
+        count_available_places = request.form.get("count_available_places",
+                                                  type=int)
 
         new_parking_zone = Parking(
             address=address,
@@ -93,7 +95,8 @@ def create_app():
             return (
                 jsonify(
                     {
-                        "message": "Нет такой парковки, поробуйте ввести корректный адресс"
+                        "message": "Нет такой парковки,"
+                                   " поробуйте ввести корректный адресс"
                     }
                 ),
                 404,
@@ -159,7 +162,8 @@ def create_app():
             return (
                 jsonify(
                     {
-                        "message": "Нет такой парковки, поробуйте ввести корректный адресс"
+                        "message": "Нет такой парковки, "
+                                   "поробуйте ввести корректный адресс"
                     }
                 ),
                 404,

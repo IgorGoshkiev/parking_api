@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import pytest
-from ..tests.factories import ClientFactory, ParkingFactory
+from tests.factories import ClientFactory, ParkingFactory
 from ..main.models import Client, Parking
 
 
