@@ -1,11 +1,10 @@
+import random
+
 import factory
 import factory.fuzzy as fuzzy
 from factory.faker import faker
-
-import random
-
 from parking_api.main.app import db
-from parking_api.main.models import Parking, Client
+from parking_api.main.models import Client, Parking
 
 
 class ClientFactory(factory.alchemy.SQLAlchemyModelFactory):
@@ -13,10 +12,10 @@ class ClientFactory(factory.alchemy.SQLAlchemyModelFactory):
         model = Client
         sqlalchemy_session = db.session
 
-    name = factory.Faker('first_name')
-    surname = factory.Faker('last_name')
-    credit_card = factory.Faker('boolean')
-    car_number = factory.Faker('license_plate')
+    name = factory.Faker("first_name")
+    surname = factory.Faker("last_name")
+    credit_card = factory.Faker("boolean")
+    car_number = factory.Faker("license_plate")
 
 
 fake = faker.Faker()
@@ -28,6 +27,6 @@ class ParkingFactory(factory.alchemy.SQLAlchemyModelFactory):
         sqlalchemy_session = db.session
 
     address = fake.address()
-    opened = factory.Faker('boolean')
+    opened = factory.Faker("boolean")
     count_places = fuzzy.FuzzyInteger(50, 150)
     count_available_places = factory.LazyAttribute(lambda x: random.randrange(50, 150))

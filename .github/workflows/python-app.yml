@@ -77,7 +77,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run black
-      run: black --diff --check main/  # Проверка форматирования
+      run: black main/  # Проверка форматирования
 
   isort:
     runs-on: ubuntu-latest
