@@ -1,8 +1,8 @@
 from datetime import datetime
 
 import pytest
-from ..tests.factories import ClientFactory, ParkingFactory
-from ..main.models import Client, Parking
+from tests.factories import ClientFactory, ParkingFactory
+from main.models import Client, Parking
 
 
 def test_create_client_factories(app, db):
