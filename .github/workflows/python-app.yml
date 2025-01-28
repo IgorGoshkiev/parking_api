@@ -59,7 +59,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run mypy
-      run: mypy src/  # Проверка типов с помощью mypy
+      run: mypy main/  # Проверка типов с помощью mypy
 
   black:
     runs-on: ubuntu-latest
@@ -77,7 +77,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run black
-      run: black --diff --check src/  # Проверка форматирования
+      run: black --diff --check main/  # Проверка форматирования
 
   isort:
     runs-on: ubuntu-latest
@@ -95,7 +95,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run isort
-      run: isort --check-only src/  # Проверка сортировки
+      run: isort --check-only main/  # Проверка сортировки
 
   flake8:
     runs-on: ubuntu-latest
@@ -113,4 +113,4 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run flake8
-      run: flake8 src/  # Проверка стиля кода
+      run: flake8 main/  # Проверка стиля кода

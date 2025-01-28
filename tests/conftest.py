@@ -2,8 +2,8 @@ from datetime import datetime
 
 import pytest
 
-from main.app import create_app, db as _db
-from main.models import Parking, Client, ClientParking
+from ..main.app import create_app, db as _db
+from ..main.models import Parking, Client, ClientParking
 
 
 @pytest.fixture
