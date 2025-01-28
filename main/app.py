@@ -147,7 +147,8 @@ def create_app():
 
         else:
             parking_available_places -= 1
-            current_condition_parking.count_available_places = parking_available_places
+            current_condition_parking.count_available_places = (
+                parking_available_places)
             current_condition_parking.opened = True
 
             add_client_for_parking = ClientParking(
@@ -156,7 +157,8 @@ def create_app():
                 time_in=datetime.datetime.now(),
             )
 
-            db.session.add_all([current_condition_parking, add_client_for_parking])
+            db.session.add_all([current_condition_parking,
+                                add_client_for_parking])
             db.session.commit()
 
             return "", 201
@@ -165,7 +167,8 @@ def create_app():
     def delete_client_parking():
         parking_id = request.form.get("parking_id", type=int)
         query_parking_id = (
-            db.session.query(Parking).filter(Parking.id == parking_id).first()
+            db.session.query(Parking).filter(Parking.id ==
+                                             parking_id).first()
         )
         if not query_parking_id:
             return (
@@ -180,7 +183,8 @@ def create_app():
 
         client_id = request.form.get("client_id", type=int)
         check_client_id = (
-            db.session.query(Client).filter(Client.id == client_id).first()
+            db.session.query(Client).filter(Client.id ==
+                                            client_id).first()
         )
         if not check_client_id:
             return (
@@ -189,7 +193,8 @@ def create_app():
                 405,
             )
         cards = (
-            db.session.query(Client.credit_card).filter(Client.id == client_id).all()
+            db.session.query(Client.credit_card).filter(Client.id ==
+                                                        client_id).all()
         )
         check_card = cards[-1]
         if not check_card:
@@ -228,7 +233,8 @@ def create_app():
             parking_available_places = query_parking_id.get_available_places()
             current_condition_parking = db.session.query(Parking).get(parking_id)
             parking_available_places += 1
-            current_condition_parking.count_available_places = parking_available_places
+            current_condition_parking.count_available_places = (
+                parking_available_places)
             current_condition_parking.opened = True
 
             db.session.add_all([current_condition_parking, add_client_for_parking])
