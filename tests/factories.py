@@ -4,8 +4,8 @@ from factory.faker import faker
 
 import random
 
-from main.app import db
-from main.models import Parking, Client
+from parking_api.main.app import db
+from parking_api.main.models import Parking, Client
 
 
 class ClientFactory(factory.alchemy.SQLAlchemyModelFactory):
