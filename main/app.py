@@ -9,7 +9,7 @@ db = SQLAlchemy()
 
 
 def create_app():
-    from models import Client, ClientParking, Parking
+    from .models import Client, ClientParking, Parking
 
     app = Flask(__name__, instance_relative_config=True)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///barrier.db"
@@ -27,9 +27,9 @@ def create_app():
     @app.route("/parkings", methods=["GET"])
     def get_prking():
         """get pargings"""
-        parkings: List[Parking] = db.session.query(Parking).all()
-        parkings_list = [u.to_json() for u in parkings]
-        return jsonify(parkings_list), 200
+        parking: List[Parking] = db.session.query(Parking).all()
+        parking_list = [u.to_json() for u in parking]
+        return jsonify(parking_list), 200
 
     @app.route("/clients", methods=["GET"])
     def get_clients():
@@ -94,7 +94,7 @@ def create_app():
                 jsonify(
                     {
                         "message": "Нет такой парковки,"
-                        " поробуйте ввести корректный адресс"
+                                   " поробуйте ввести корректный адресс"
                     }
                 ),
                 404,
@@ -161,7 +161,7 @@ def create_app():
                 jsonify(
                     {
                         "message": "Нет такой парковки, "
-                        "поробуйте ввести корректный адресс"
+                                   "поробуйте ввести корректный адресс"
                     }
                 ),
                 404,
@@ -200,7 +200,7 @@ def create_app():
                     jsonify(
                         {
                             "message": "Время выезда не может быть меньше "
-                            "времени заезда"
+                                       "времени заезда"
                         }
                     ),
                     407,

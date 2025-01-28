@@ -1,9 +1,9 @@
 from datetime import datetime
 
 import pytest
-from parking_api.main.app import create_app
-from parking_api.main.app import db as _db
-from parking_api.main.models import Client, ClientParking, Parking
+from main.app import create_app
+from main.app import db as _db
+from main.models import Client, ClientParking, Parking
 
 
 @pytest.fixture

@@ -3,8 +3,8 @@ import random
 import factory
 import factory.fuzzy as fuzzy
 from factory.faker import faker
-from parking_api.main.app import db
-from parking_api.main.models import Client, Parking
+from main.app import db
+from main.models import Client, Parking
 
 
 class ClientFactory(factory.alchemy.SQLAlchemyModelFactory):

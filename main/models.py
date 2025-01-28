@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-from app import db
+from .app import db
 
 
 class Parking(db.Model):
