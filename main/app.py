@@ -231,13 +231,15 @@ def create_app():
             )
 
             parking_available_places = query_parking_id.get_available_places()
-            current_condition_parking = db.session.query(Parking).get(parking_id)
+            current_condition_parking = (db.session.query(Parking).
+                                         get(parking_id))
             parking_available_places += 1
             current_condition_parking.count_available_places = (
                 parking_available_places)
             current_condition_parking.opened = True
 
-            db.session.add_all([current_condition_parking, add_client_for_parking])
+            db.session.add_all([current_condition_parking,
+                                add_client_for_parking])
             db.session.commit()
             return "", 201
 
