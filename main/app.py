@@ -41,9 +41,13 @@ def create_app():
 
     @app.route("/clients/<int:client_id>", methods=["GET"])
     def get_client(client_id: int) -> json:
+        """Получение нужного клиента"""
         client: Client = db.session.query(Client).get(client_id)
         if client is None:
-            return 400
+            return (
+                jsonify({"message": "Not clients, " "Error"}),
+                405,
+            )
         return jsonify(client.to_json()), 200
 
     @app.route("/clients", methods=["POST"])
@@ -54,7 +58,8 @@ def create_app():
         car_number = request.form.get("car_number", type=str)
 
         new_client = Client(
-            name=name, surname=surname, credit_card=credit_card, car_number=car_number
+            name=name, surname=surname, credit_card=credit_card,
+            car_number=car_number
         )
 
         db.session.add(new_client)
@@ -66,7 +71,8 @@ def create_app():
         address = request.form.get("address", type=str)
         opened = request.form.get("opened", type=bool)
         count_places = request.form.get("count_places", type=int)
-        count_available_places = request.form.get("count_available_places", type=int)
+        count_available_places = request.form.get("count_available_places",
+                                                  type=int)
 
         new_parking_zone = Parking(
             address=address,
@@ -109,7 +115,8 @@ def create_app():
         )
         if not check_client_id:
             return (
-                jsonify({"message": "Такой клиент не найден, " "пройдите регистрацию"}),
+                jsonify({"message": "Такой клиент не найден, "
+                                    "пройдите регистрацию"}),
                 405,
             )
 
@@ -125,7 +132,8 @@ def create_app():
             if client_time_out is None:
                 return (
                     jsonify(
-                        {"message": "Такой клиент уже запарковаля и " "еще не выехал"}
+                        {"message": "Такой клиент уже запарковаля "
+                                    "и ""еще не выехал"}
                     ),
                     406,
                 )
@@ -176,7 +184,8 @@ def create_app():
         )
         if not check_client_id:
             return (
-                jsonify({"message": "Такой клиент не найден, " "пройдите регистрацию"}),
+                jsonify({"message": "Такой клиент не найден, "
+                                    "" "пройдите регистрацию"}),
                 405,
             )
         cards = (
@@ -184,7 +193,8 @@ def create_app():
         )
         check_card = cards[-1]
         if not check_card:
-            return jsonify({"message": "Отсутсвует карта для " "оплаты парковки"}), 406
+            return jsonify({"message": "Отсутсвует карта для "
+                                       "" "оплаты парковки"}), 406
 
         all_visits_client_for_parking = (
             db.session.query(ClientParking)
@@ -226,7 +236,8 @@ def create_app():
             return "", 201
 
         else:
-            return jsonify({"message": "Такой клиент уже давно выехал"}), 410
+            return jsonify({"message": "Такой клиент уже "
+                                       "давно выехал"}), 410
 
     @app.route("/client_parkings", methods=["GET"])
     def get_client_parking() -> json:
